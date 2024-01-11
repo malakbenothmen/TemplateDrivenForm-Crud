@@ -20,7 +20,7 @@ public addEmployee(employee: Employee): Observable<Employee> {
 }
 
 public updateEmployee(employee: Employee): Observable<Employee> {
-  const url = `${this.apiUrl}/${employee.id}`; // L'URL spécifique pour l'employé à mettre à jour
+  const url = `${this.apiUrl}/${employee.id}`; 
   return this.http.put<Employee>(url, employee);
 }
 public deleteEmployee(id: number): Observable<Employee> {

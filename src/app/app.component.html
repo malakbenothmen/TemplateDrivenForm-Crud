@@ -1,42 +1,72 @@
-<!-- Formulaire pour saisir les données d'un nouvel employé -->
-<h2 align="center">{{ selectedEmployee ? 'Edit Employee' : 'Register Employee' }}</h2>
-<form #employeeForm="ngForm" (ngSubmit)="onSubmit()" align="center">
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="newEmployee.name" required>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+<div class="container mt-5">
+  <div class="card mx-auto" style="background-color: rgba(247, 240, 240, 0.873); width : 60%; ">
+    <div class="card-header"  [style.background-color]="selectedEmployee ? 'rgb(88, 220, 99)' : 'rgb(255, 192, 192)'"  >
+      <h2 class="text-center" style="color:white ; font-weight: bold;">{{ selectedEmployee ? 'Editer Employee' : 'Register Employee' }}</h2> 
+    </div>
+
+    <div class="card-body">
+      <form #employeeForm="ngForm" (ngSubmit)="onSubmit()" class="mt-3">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" class="form-control" [(ngModel)]="newEmployee.name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <input type="text" id="status" name="status" class="form-control" [(ngModel)]="newEmployee.status" required>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-info" [style.background-color]="selectedEmployee ? 'rgba(0, 255, 0, 0.959)':'rgba(255, 21, 0, 0.959)' " >
+            {{ selectedEmployee ? 'Confirmer' : 'Ajouter Employee' }} 
+          </button>
+
+          <!-- Display the Cancel button only in edit mode -->
+          <button type="button" *ngIf="selectedEmployee" (click)="cancelEdit()" class="btn btn-secondary" style ="margin-left: 10px;">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="status">Status:</label>
-    <input type="text" id="status" name="status" [(ngModel)]="newEmployee.status" required>
-  </div>
-  <button type="submit">{{ selectedEmployee ? 'Save' : 'Add' }} Employee</button>
-  <!-- Affiche le bouton Cancel uniquement en mode d'édition -->
-  <button type="button" *ngIf="selectedEmployee" (click)="cancelEdit()">Cancel</button>
-</form>
+</div>
 
 
-<h1 align="center">
-Liste des employees
+<div class="container mt-5">
+  <h1 class="text-center mb-4" style="color: rgb(232, 169, 81) ;font-weight: bold;">
+    Liste des employees
   </h1>
-  <table border="1" style="width: 50%" align="center">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Action</th> <!-- Nouvelle colonne pour les actions -->
-    </tr>
-    <tr *ngFor="let emp of employees">
-      <td>{{ emp.id }}</td>
-      <td>{{ emp.name }}</td>
-      <td>{{ emp.status }}</td>
-      <td>
-        <!-- Bouton pour modifier un employé -->
-        <button (click)="editEmployee(emp)">Edit</button>
+
+  <table class="table table-bordered table-striped table-hover shadow" style="width: 80%" align="center">
+    <thead style="background-color:  #a97c50 ; color : white ;"> 
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.status }}</td>
+        <td>
+          <!-- Edit Button with Bootstrap Icon -->
+          <button (click)="editEmployee(emp)" class="btn btn"  style = "background-color: rgb(88, 220, 99); margin-right : 10px; color : white;">
+            <i class="fas fa-pencil-alt"></i> Edit
+          </button>
   
-        <!-- Bouton pour supprimer un employé -->
-        <button (click)="deleteEmployee(emp.id)">Delete</button>
-      </td>
-    </tr>
+          <!-- Delete Button with Bootstrap Icon -->
+          <button (click)="deleteEmployee(emp.id)" class="btn btn " style = "background-color: rgb(241, 163, 67); color : white;">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
-
-
+</div>
+</body>

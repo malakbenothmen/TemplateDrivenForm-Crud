@@ -35,7 +35,6 @@ constructor(private  empService:EmployeeService ) {
     this.empService.updateEmployee(this.selectedEmployee).subscribe(response => {
       console.log('Employee updated successfully', response);
     });
-
     // Réinitialisez le formulaire et l'employé sélectionné
     this.newEmployee = new Employee(0, '', '');
     this.selectedEmployee = null;
